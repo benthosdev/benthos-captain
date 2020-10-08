@@ -1,1 +1,1 @@
-# benthos-captain
+![Benthos Captain](icon.png "Benthos Captain")
