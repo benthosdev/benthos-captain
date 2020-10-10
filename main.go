@@ -18,7 +18,6 @@ package main
 
 import (
 	"flag"
-	"github.com/mfamador/benthos-captain/api/v1beta1"
 	"os"
 
 	"k8s.io/apimachinery/pkg/runtime"
@@ -28,6 +27,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
+	benthosdevv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
 	"github.com/mfamador/benthos-captain/controllers"
 	// +kubebuilder:scaffold:imports
 )
@@ -40,7 +40,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(v1beta1.AddToScheme(scheme))
+	utilruntime.Must(benthosdevv1beta1.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -75,7 +75,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Pipeline")
 		os.Exit(1)
 	}
-	if err = (&v1beta1.Pipeline{}).SetupWebhookWithManager(mgr); err != nil {
+	if err = (&benthosdevv1beta1.Pipeline{}).SetupWebhookWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create webhook", "webhook", "Pipeline")
 		os.Exit(1)
 	}

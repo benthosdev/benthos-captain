@@ -35,7 +35,7 @@ func (r *Pipeline) SetupWebhookWithManager(mgr ctrl.Manager) error {
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
-// +kubebuilder:webhook:verbs=create;update,path=/validate-benthos-dev-my-domain-v1-pipeline,mutating=false,failurePolicy=fail,groups=benthos.dev.my.domain,resources=pipelines,versions=v1,name=vpipeline.kb.io
+// +kubebuilder:webhook:verbs=create;update,path=/validate-benthos-dev-my-domain-v1beta1-pipeline,mutating=false,failurePolicy=fail,groups=benthos.dev.my.domain,resources=pipelines,versions=v1beta1,name=vpipeline.kb.io
 
 var _ webhook.Validator = &Pipeline{}
 

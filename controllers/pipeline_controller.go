@@ -18,12 +18,13 @@ package controllers
 
 import (
 	"context"
-	"github.com/mfamador/benthos-captain/api/v1beta1"
 
 	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+
+	benthosdevv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
 )
 
 // PipelineReconciler reconciles a Pipeline object
@@ -47,6 +48,6 @@ func (r *PipelineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 func (r *PipelineReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&v1beta1.Pipeline{}).
+		For(&benthosdevv1beta1.Pipeline{}).
 		Complete(r)
 }

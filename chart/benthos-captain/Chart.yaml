@@ -1,0 +1,6 @@
+apiVersion: v2
+name: benthos-captain
+description: A Helm chart for Benthos Captain, the Kubernetes Operator to orchestrate Benthos pipelines
+type: application
+version: 0.1.0
+appVersion: =.1.0
