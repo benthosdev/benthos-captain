@@ -1,0 +1,11 @@
+domain: my.domain
+layout: go.kubebuilder.io/v2
+projectName: benthos-captain
+repo: github.com/mfamador/benthos-captain
+resources:
+- group: benthos.dev
+  kind: Pipeline
+  version: v1
+version: 3-alpha
+plugins:
+  go.sdk.operatorframework.io/v2-alpha: {}

@@ -1,0 +1,7 @@
+apiVersion: benthos.dev.my.domain/v1
+kind: Pipeline
+metadata:
+  name: pipeline-sample
+spec:
+  # Add fields here
+  foo: bar
