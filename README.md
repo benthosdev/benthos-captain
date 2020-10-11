@@ -12,19 +12,29 @@ This operator was created with [Operator SDK](https://sdk.operatorframework.io/)
 make docker-build docker-push IMG=<some-registry>/benthos-captain:0.1.0
 ```
 
-## Run
+## Install Pipelines CRD
 
 ```
 make install
+```
+
+## Deploy Benthos-Captain operator
+
+```
 make deploy IMG=<some-registry>/benthos-captain:0.1.0
 ```
 
-Create a sample Pipeline:
+## Create a sample Pipeline:
 ```
 kubectl apply -f config/samples/benthos_v1beta1_pipeline.yaml -n default
 ```
 
-See the operator's logs:
+## Check the newly created Pipeline:
 ```
-kubectl logs deployment.apps/benthos-captain-controller-manager -n benthos-captain-operator-system -c manager
+kubectl get pipelines -n default
+```
+
+## See Benthos-Captain's logs:
+```
+kubectl logs -f deployment.apps/benthos-captain-controller-manager -n benthos-captain-system -c manager
 ```
