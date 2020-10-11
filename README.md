@@ -4,7 +4,7 @@
 
 Benthos Captain is a Kubernetes Operator to orchestrate [Benthos](https://www.benthos.dev/) pipelines.
 
-This operator was created with [Operator SDK](https://sdk.operatorframework.io/)
+This operator has been created with [Operator SDK](https://sdk.operatorframework.io/)
 
 ## Build
 
@@ -44,3 +44,7 @@ kubectl get pipelines -n default
 ```
 kubectl logs -f deployment.apps/benthos-captain-controller-manager -n benthos-captain-system -c manager
 ```
+
+# Helm Chart
+
+If you want to deploy Benthos-Captain with Helm, see the docs [here](chart/benthos-captain/README.md)
