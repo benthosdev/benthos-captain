@@ -24,7 +24,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	benthosdevv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
+	benthosv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
 )
 
 // PipelineReconciler reconciles a Pipeline object
@@ -34,8 +34,8 @@ type PipelineReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=benthos.dev,resources=pipelines/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=benthos.benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=benthos.benthos.dev,resources=pipelines/status,verbs=get;update;patch
 
 func (r *PipelineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
@@ -48,6 +48,6 @@ func (r *PipelineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 
 func (r *PipelineReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&benthosdevv1beta1.Pipeline{}).
+		For(&benthosv1beta1.Pipeline{}).
 		Complete(r)
 }

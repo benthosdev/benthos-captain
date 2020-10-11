@@ -1,9 +1,9 @@
-domain: my.domain
+domain: benthos.dev
 layout: go.kubebuilder.io/v2
 projectName: benthos-captain
 repo: github.com/mfamador/benthos-captain
 resources:
-- group: benthos.dev
+- group: benthos
   kind: Pipeline
   version: v1beta1
 version: 3-alpha

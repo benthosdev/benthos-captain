@@ -27,7 +27,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	benthosdevv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
+	benthosv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
 	"github.com/mfamador/benthos-captain/controllers"
 	// +kubebuilder:scaffold:imports
 )
@@ -40,7 +40,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(benthosdevv1beta1.AddToScheme(scheme))
+	utilruntime.Must(benthosv1beta1.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -60,7 +60,7 @@ func main() {
 		MetricsBindAddress: metricsAddr,
 		Port:               9443,
 		LeaderElection:     enableLeaderElection,
-		LeaderElectionID:   "d4f086aa.my.domain",
+		LeaderElectionID:   "d4f086aa.benthos.dev",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
@@ -73,10 +73,6 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Pipeline")
-		os.Exit(1)
-	}
-	if err = (&benthosdevv1beta1.Pipeline{}).SetupWebhookWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create webhook", "webhook", "Pipeline")
 		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder

@@ -6,9 +6,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
-  name: pipelines.benthos.dev
+  name: pipelines.benthos.benthos.dev
 spec:
-  group: benthos.dev
+  group: benthos.benthos.dev
   names:
     kind: Pipeline
     listKind: PipelineList
