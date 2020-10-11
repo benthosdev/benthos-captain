@@ -1,4 +1,4 @@
 ## Append samples you want in your CSV to this file as resources ##
 resources:
-- benthos_v1beta1_pipeline.yaml
+- benthos-captain_v1beta1_pipeline.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

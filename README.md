@@ -21,7 +21,7 @@ make install
 ## Check the newly created CRD
 
 ```
-kubectl get crd pipelines.benthos.benthos.dev -oyaml
+kubectl get crd pipelines.benthos-captain.benthos.dev -oyaml
 ```
 
 ## Deploy Benthos-Captain operator

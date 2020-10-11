@@ -27,7 +27,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	benthosv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
+	benthoscaptainv1beta1 "github.com/mfamador/benthos-captain/api/v1beta1"
 	"github.com/mfamador/benthos-captain/controllers"
 	// +kubebuilder:scaffold:imports
 )
@@ -40,7 +40,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(benthosv1beta1.AddToScheme(scheme))
+	utilruntime.Must(benthoscaptainv1beta1.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 

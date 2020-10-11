@@ -1,4 +1,4 @@
-apiVersion: benthos.benthos.dev/v1beta1
+apiVersion: benthos-captain.benthos.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline-sample

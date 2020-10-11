@@ -7,7 +7,7 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - benthos.benthos.dev
+  - benthos-captain.benthos.dev
   resources:
   - pipelines
   verbs:
@@ -19,7 +19,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - benthos.benthos.dev
+  - benthos-captain.benthos.dev
   resources:
   - pipelines/status
   verbs:

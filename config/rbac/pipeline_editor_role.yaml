@@ -5,7 +5,7 @@ metadata:
   name: pipeline-editor-role
 rules:
 - apiGroups:
-  - benthos.benthos.dev
+  - benthos-captain.benthos.dev
   resources:
   - pipelines
   verbs:
@@ -17,7 +17,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - benthos.benthos.dev
+  - benthos-captain.benthos.dev
   resources:
   - pipelines/status
   verbs:
