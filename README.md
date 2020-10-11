@@ -12,10 +12,16 @@ This operator was created with [Operator SDK](https://sdk.operatorframework.io/)
 make docker-build docker-push IMG=<some-registry>/benthos-captain:0.1.0
 ```
 
-## Install Pipelines CRD
+## Install the Pipelines CRD
 
 ```
 make install
+```
+
+## Check the newly created CRD
+
+```
+kubectl get crd pipelines.benthos.benthos.dev -oyaml
 ```
 
 ## Deploy Benthos-Captain operator
