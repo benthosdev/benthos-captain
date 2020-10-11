@@ -1,16 +1,22 @@
-# permissions for end users to view pipelines.
+
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: pipeline-viewer-role
+  creationTimestamp: null
+  name: manager-role
 rules:
 - apiGroups:
   - benthos.dev
   resources:
   - pipelines
   verbs:
+  - create
+  - delete
   - get
   - list
+  - patch
+  - update
   - watch
 - apiGroups:
   - benthos.dev
@@ -18,3 +24,5 @@ rules:
   - pipelines/status
   verbs:
   - get
+  - patch
+  - update

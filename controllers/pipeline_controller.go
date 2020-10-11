@@ -34,8 +34,8 @@ type PipelineReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=benthos.dev.my.domain,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=benthos.dev.my.domain,resources=pipelines/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=benthos.dev,resources=pipelines/status,verbs=get;update;patch
 
 func (r *PipelineReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
