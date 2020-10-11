@@ -32,7 +32,7 @@ make deploy IMG=<some-registry>/benthos-captain:0.1.0
 
 ## Create a sample Pipeline:
 ```
-kubectl apply -f config/samples/benthos_v1beta1_pipeline.yaml -n default
+kubectl apply -f config/samples/benthos-captain_v1beta1_pipeline.yaml -n default
 ```
 
 ## Check the newly created Pipeline:
