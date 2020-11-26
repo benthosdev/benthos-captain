@@ -43,21 +43,38 @@ type PipelineSpec struct {
 	Config Config `json:"config,omitempty"`
 }
 
+type State string
+
+const (
+	Degraded State = "Degraded"
+	Running        = "Running"
+	Paused         = "Paused"
+	Failed         = "Failed"
+)
+
 // PipelineStatus defines the observed state of Pipeline
 type PipelineStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// State
+	State State `json:"state,omitempty"`
+
+	// Other
+	Other string `json:"other,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:shortName=pipes;pipe
 
 // Pipeline is the Schema for the pipelines API
 type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   PipelineSpec   `json:"spec,omitempty"`
+	Spec PipelineSpec `json:"spec,omitempty"`
+
 	Status PipelineStatus `json:"status,omitempty"`
 }
 
@@ -71,5 +88,5 @@ type PipelineList struct {
 }
 
 func init() {
-	SchemeBuilder.Register(&Pipeline{}, &PipelineList{})
+	SchemeBuilder.Register(&Pipeline{Status: PipelineStatus{State: Running}}, &PipelineList{})
 }
