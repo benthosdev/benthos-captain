@@ -23,13 +23,24 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type Input struct {
+	Name string `json:"name,omitempty"`
+}
+
+type Config struct {
+	Inputs []Input `json:"inputs,omitempty"`
+}
+
 // PipelineSpec defines the desired state of Pipeline
 type PipelineSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Pipeline. Edit Pipeline_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Workers defines the number of workers
+	Workers int `json:"workers,omitempty"`
+
+	// Workers defines the number of workers
+	Config Config `json:"config,omitempty"`
 }
 
 // PipelineStatus defines the observed state of Pipeline

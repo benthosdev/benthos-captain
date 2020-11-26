@@ -36,10 +36,20 @@ spec:
         spec:
           description: PipelineSpec defines the desired state of Pipeline
           properties:
-            foo:
-              description: Foo is an example field of Pipeline. Edit Pipeline_types.go
-                to remove/update
-              type: string
+            config:
+              description: Workers defines the number of workers
+              properties:
+                inputs:
+                  items:
+                    properties:
+                      name:
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            workers:
+              description: Workers defines the number of workers
+              type: integer
           type: object
         status:
           description: PipelineStatus defines the observed state of Pipeline

@@ -3,5 +3,7 @@ kind: Pipeline
 metadata:
   name: pipeline-sample
 spec:
-  # Add fields here
-  foo: bar
+  workers: 1
+  config:
+    inputs:
+    - name: test
