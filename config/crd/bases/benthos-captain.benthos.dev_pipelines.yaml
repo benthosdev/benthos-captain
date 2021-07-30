@@ -61,8 +61,7 @@ spec:
               description: Other
               type: string
             state:
-              description: It will be as "OK when all objects are created successfully
-                State
+              description: State
               type: string
           type: object
       type: object
