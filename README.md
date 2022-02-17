@@ -51,4 +51,3 @@ kubectl logs -f deployment.apps/benthos-captain-controller-manager -n benthos-ca
 # Helm Chart
 
 If you want to deploy Benthos-Captain with Helm, see [here](chart/benthos-captain/README.md)
-

@@ -1,0 +1,15 @@
+apiVersion: benthos-captain.benthos.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline-sample2
+spec:
+  input:
+    test:
+      name: foo2
+      timeout: 10
+  pipeline:
+    processors:
+    - log:
+        message: "test"
+  output:
+    stdout: {}

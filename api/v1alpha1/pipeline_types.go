@@ -1,5 +1,5 @@
 /*
-
+Copyright 2022.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1beta1
+package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,62 +23,34 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-type Input struct {
-	Name string `json:"name,omitempty"`
-}
-
-type Config struct {
-	Inputs []Input `json:"inputs,omitempty"`
-}
-
 // PipelineSpec defines the desired state of Pipeline
 type PipelineSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Workers defines the number of workers
-	Workers int `json:"workers,omitempty"`
-
-	// Workers defines the number of workers
-	Config Config `json:"config,omitempty"`
+	// Foo is an example field of Pipeline. Edit pipeline_types.go to remove/update
+	Foo string `json:"foo,omitempty"`
 }
-
-type State string
-
-const (
-	Degraded State = "Degraded"
-	Running        = "Running"
-	Paused         = "Paused"
-	Failed         = "Failed"
-)
 
 // PipelineStatus defines the observed state of Pipeline
 type PipelineStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// State
-	State State `json:"state,omitempty"`
-
-	// Other
-	Other string `json:"other,omitempty"`
 }
 
-// +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
-// +kubebuilder:resource:shortName=pipes;pipe
+//+kubebuilder:object:root=true
+//+kubebuilder:subresource:status
 
 // Pipeline is the Schema for the pipelines API
 type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec PipelineSpec `json:"spec,omitempty"`
-
+	Spec   PipelineSpec   `json:"spec,omitempty"`
 	Status PipelineStatus `json:"status,omitempty"`
 }
 
-// +kubebuilder:object:root=true
+//+kubebuilder:object:root=true
 
 // PipelineList contains a list of Pipeline
 type PipelineList struct {
@@ -88,5 +60,5 @@ type PipelineList struct {
 }
 
 func init() {
-	SchemeBuilder.Register(&Pipeline{Status: PipelineStatus{State: Running}}, &PipelineList{})
+	SchemeBuilder.Register(&Pipeline{}, &PipelineList{})
 }

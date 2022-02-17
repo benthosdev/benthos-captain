@@ -1,9 +1,0 @@
-apiVersion: benthos-captain.benthos.dev/v1beta1
-kind: Pipeline
-metadata:
-  name: pipeline-sample
-spec:
-  workers: 1
-  config:
-    inputs:
-    - name: test
