@@ -37,7 +37,7 @@ type PipelineReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=apps,resources=deployments;services,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=*,resources=*,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines/finalizers,verbs=update
