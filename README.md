@@ -43,9 +43,14 @@ kubectl apply -f config/samples/benthoscaptain_v1alpha1_pipeline.yaml -n default
 kubectl get pipelines -n default
 ```
 
-## See Benthos-Captain's logs:
+## See benthos-captain controller manager logs:
 ```
 kubectl logs -f deploy/benthos-captain-controller-manager -n benthos-captain-system -c manager
+```
+
+## See sample benthos pipeline logs:
+```
+kubectl logs -f deploy/pipeline-sample -n default
 ```
 
 # Helm Chart
