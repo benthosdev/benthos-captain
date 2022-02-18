@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: pipelines.benthos-captain.benthos.dev
+  name: pipelines.benthoscaptain.benthos.dev
 spec:
-  group: benthos-captain.benthos.dev
+  group: benthoscaptain.benthos.dev
   names:
     kind: Pipeline
     listKind: PipelineList
@@ -35,13 +35,56 @@ spec:
           spec:
             description: PipelineSpec defines the desired state of Pipeline
             properties:
-              foo:
-                description: Foo is an example field of Pipeline. Edit pipeline_types.go
-                  to remove/update
-                type: string
+              config:
+                description: Config defines the pipeline config
+                properties:
+                  buffer:
+                    type: object
+                  http:
+                    type: object
+                  input:
+                    properties:
+                      name:
+                        type: string
+                    type: object
+                  logger:
+                    type: object
+                  metrics:
+                    type: object
+                  output:
+                    type: object
+                  pipeline:
+                    type: object
+                  resources:
+                    type: object
+                  shutdown_timeout:
+                    type: object
+                  tests:
+                    type: object
+                  tracer:
+                    type: object
+                required:
+                - buffer
+                - http
+                - input
+                - logger
+                - metrics
+                - output
+                - pipeline
+                - resources
+                - shutdown_timeout
+                - tracer
+                type: object
+              workers:
+                description: Workers defines the number of workers
+                type: integer
             type: object
           status:
             description: PipelineStatus defines the observed state of Pipeline
+            properties:
+              state:
+                description: State
+                type: string
             type: object
         type: object
     served: true

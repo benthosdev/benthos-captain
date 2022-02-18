@@ -12,7 +12,7 @@ resources:
     namespaced: true
   controller: true
   domain: benthos.dev
-  group: benthos-captain
+  group: benthoscaptain
   kind: Pipeline
   path: github.com/benthosdev/benthos-captain/api/v1alpha1
   version: v1alpha1

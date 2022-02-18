@@ -24,7 +24,7 @@ make install
 ## Check the newly created CRD
 
 ```
-kubectl get crd pipelines.benthos-captain.benthos.dev -oyaml
+kubectl get crd pipelines.captain.benthos.dev -oyaml
 ```
 
 ## Deploy Benthos-Captain operator
@@ -35,7 +35,7 @@ make deploy IMG=<some-registry>/benthos-captain:0.1.0
 
 ## Create a sample Pipeline:
 ```
-kubectl apply -f config/samples/benthos-captain_v1beta1_pipeline.yaml -n default
+kubectl apply -f config/samples/benthoscaptain_v1alpha1_pipeline.yaml -n default
 ```
 
 ## Check the newly created Pipeline:
@@ -45,7 +45,7 @@ kubectl get pipelines -n default
 
 ## See Benthos-Captain's logs:
 ```
-kubectl logs -f deployment.apps/benthos-captain-controller-manager -n benthos-captain-system -c manager
+kubectl logs -f deploy/benthos-captain-controller-manager -n benthos-captain-system -c manager
 ```
 
 # Helm Chart
