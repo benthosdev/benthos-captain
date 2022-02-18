@@ -37,9 +37,10 @@ type PipelineReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=captain.benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=captain.benthos.dev,resources=pipelines/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=captain.benthos.dev,resources=pipelines/finalizers,verbs=update
+//+kubebuilder:rbac:groups=apps,resources=deployments;services,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=benthoscaptain.benthos.dev,resources=pipelines/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

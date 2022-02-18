@@ -6,7 +6,20 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - captain.benthos.dev
+  - apps
+  resources:
+  - deployments
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - benthoscaptain.benthos.dev
   resources:
   - pipelines
   verbs:
@@ -18,13 +31,13 @@ rules:
   - update
   - watch
 - apiGroups:
-  - captain.benthos.dev
+  - benthoscaptain.benthos.dev
   resources:
   - pipelines/finalizers
   verbs:
   - update
 - apiGroups:
-  - captain.benthos.dev
+  - benthoscaptain.benthos.dev
   resources:
   - pipelines/status
   verbs:
