@@ -7,52 +7,39 @@
 
 Benthos Captain is a Kubernetes Operator to orchestrate [Benthos](https://www.benthos.dev/) pipelines.
 
-This operator has been created with [Operator SDK](https://sdk.operatorframework.io/)
 
-## Build
+## Getting Started
 
-```
-make docker-build docker-push IMG=<some-registry>/benthos-captain:0.1.0
-```
+Currently, there isn't a stable release of the operator. If you want to install the operator for development purposes, you can follow the [developer guide](./docs/developer-guide.md).
 
-## Install the Pipelines CRD
+The operator provides a custom resource for managing Benthos pipelines. Once you've got the operator running, you can deploy a `BenthosPipeline` resource to test it out:
+```yaml
+---
+apiVersion: streaming.benthos.dev/v1alpha1
+kind: BenthosPipeline
+metadata:
+  name: benthospipeline-sample
+spec:
+  replicas: 2
+  config: |
+    input:
+      generate:
+        mapping: root = "woof"
+        interval: 5s
+        count: 0
 
-```
-make install
-```
+    pipeline:
+      processors:
+        - mapping: root = content().uppercase()
 
-## Check the newly created CRD
-
-```
-kubectl get crd pipelines.captain.benthos.dev -oyaml
-```
-
-## Deploy Benthos-Captain operator
-
-```
-make deploy IMG=<some-registry>/benthos-captain:0.1.0
-```
-
-## Create a sample Pipeline:
-```
-kubectl apply -f config/samples/benthoscaptain_v1alpha1_pipeline.yaml -n default
+    output:
+      stdout: {}
 ```
 
-## Check the newly created Pipeline:
-```
-kubectl get pipelines -n default
-```
+Once the resource is deployed, you can monitor the state of the resoure:
+```bash
+kubectl get benthospipelines
 
-## See benthos-captain controller manager logs:
+NAME                     READY   PHASE     REPLICAS   AVAILABLE   AGE
+benthospipeline-sample   true    Running   2          2           62s
 ```
-kubectl logs -f deploy/benthos-captain-controller-manager -n benthos-captain-system -c manager
-```
-
-## See sample benthos pipeline logs:
-```
-kubectl logs -f deploy/pipeline-sample -n default
-```
-
-# Helm Chart
-
-If you want to deploy Benthos-Captain with Helm, see [here](chart/benthos-captain/README.md)
