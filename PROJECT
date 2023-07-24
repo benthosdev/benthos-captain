@@ -5,7 +5,7 @@
 domain: benthos.dev
 layout:
 - go.kubebuilder.io/v4
-projectName: benthos-operator
+projectName: bentos-captain
 repo: github.com/benthosdev/benthos-captain
 resources:
 - api:
@@ -14,7 +14,7 @@ resources:
   controller: true
   domain: benthos.dev
   group: streaming
-  kind: BenthosPipeline
+  kind: Pipeline
   path: github.com/benthosdev/benthos-captain/api/v1alpha1
   version: v1alpha1
 version: "3"

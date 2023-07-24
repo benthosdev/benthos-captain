@@ -1,15 +1,23 @@
 package resource
 
 import (
+	captainv1 "github.com/benthosdev/benthos-captain/api/v1alpha1"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func NewDeployment(name string, namespace string, replicas int32) *appsv1.Deployment {
+const DefaultImage = "jeffail/benthos:4.22"
+
+func NewDeployment(name string, namespace string, scope captainv1.PipelineSpec) *appsv1.Deployment {
 	labels := map[string]string{
 		"app.kubernetes.io/name":     "benthos",
 		"app.kubernetes.io/instance": name,
+	}
+
+	image := DefaultImage
+	if scope.Image != "" {
+		image = scope.Image
 	}
 
 	return &appsv1.Deployment{
@@ -18,7 +26,7 @@ func NewDeployment(name string, namespace string, replicas int32) *appsv1.Deploy
 			Namespace: namespace,
 		},
 		Spec: appsv1.DeploymentSpec{
-			Replicas: &replicas,
+			Replicas: &scope.Replicas,
 			Selector: &metav1.LabelSelector{
 				MatchLabels: labels,
 			},
@@ -28,7 +36,7 @@ func NewDeployment(name string, namespace string, replicas int32) *appsv1.Deploy
 				},
 				Spec: corev1.PodSpec{
 					Containers: []corev1.Container{{
-						Image:           "jeffail/benthos:4.18",
+						Image:           image,
 						ImagePullPolicy: corev1.PullAlways,
 						Name:            "benthos",
 						Ports: []corev1.ContainerPort{{

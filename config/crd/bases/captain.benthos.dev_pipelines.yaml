@@ -4,14 +4,14 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.12.0
-  name: benthospipelines.streaming.benthos.dev
+  name: pipelines.captain.benthos.dev
 spec:
-  group: streaming.benthos.dev
+  group: captain.benthos.dev
   names:
-    kind: BenthosPipeline
-    listKind: BenthosPipelineList
-    plural: benthospipelines
-    singular: benthospipeline
+    kind: Pipeline
+    listKind: PipelineList
+    plural: pipelines
+    singular: pipeline
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -38,7 +38,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: BenthosPipeline is the Schema for the benthospipelines API
+        description: Pipeline is the Schema for the pipelines API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -53,10 +53,14 @@ spec:
           metadata:
             type: object
           spec:
-            description: BenthosPipelineSpec defines the desired state of BenthosPipeline
+            description: PipelineSpec defines the desired state of Pipeline
             properties:
               config:
                 description: Config defines the Benthos configuration as a string.
+                x-kubernetes-preserve-unknown-fields: true
+              image:
+                description: Image defines the image and tag to use for the Benthos
+                  deployment.
                 type: string
               replicas:
                 description: Replicas defines the amount of replicas to create for
@@ -65,7 +69,7 @@ spec:
                 type: integer
             type: object
           status:
-            description: BenthosPipelineStatus defines the observed state of BenthosPipeline
+            description: PipelineStatus defines the observed state of Pipeline
             properties:
               availableReplicas:
                 description: AvailableReplicas is the amount of pods available from

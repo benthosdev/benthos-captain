@@ -35,9 +35,9 @@ rules:
   verbs:
   - get
 - apiGroups:
-  - streaming.benthos.dev
+  - captain.benthos.dev
   resources:
-  - benthospipelines
+  - pipelines
   verbs:
   - create
   - delete
@@ -47,15 +47,15 @@ rules:
   - update
   - watch
 - apiGroups:
-  - streaming.benthos.dev
+  - captain.benthos.dev
   resources:
-  - benthospipelines/finalizers
+  - pipelines/finalizers
   verbs:
   - update
 - apiGroups:
-  - streaming.benthos.dev
+  - captain.benthos.dev
   resources:
-  - benthospipelines/status
+  - pipelines/status
   verbs:
   - get
   - patch

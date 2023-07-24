@@ -75,11 +75,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controller.BenthosPipelineReconciler{
+	if err = (&controller.PipelineReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "BenthosPipeline")
+		setupLog.Error(err, "unable to create controller", "controller", "Pipeline")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

@@ -35,13 +35,13 @@ kubectl apply -f config/samples/
 2. Build and push your image to the location specified by `IMG`:
 
 ```sh
-make docker-build docker-push IMG=<some-registry>/benthos-operator:tag
+make docker-build docker-push IMG=<some-registry>/bentos-captain:tag
 ```
 
 3. Deploy the controller to the cluster with the image specified by `IMG`:
 
 ```sh
-make deploy IMG=<some-registry>/benthos-operator:tag
+make deploy IMG=<some-registry>/bentos-captain:tag
 ```
 
 ### Uninstall CRDs

@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: role
     app.kubernetes.io/instance: leader-election-role
     app.kubernetes.io/component: rbac
-    app.kubernetes.io/created-by: benthos-operator
-    app.kubernetes.io/part-of: benthos-operator
+    app.kubernetes.io/created-by: bentos-captain
+    app.kubernetes.io/part-of: bentos-captain
     app.kubernetes.io/managed-by: kustomize
   name: leader-election-role
 rules:
