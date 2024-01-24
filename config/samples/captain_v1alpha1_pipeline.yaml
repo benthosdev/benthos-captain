@@ -1,0 +1,25 @@
+apiVersion: captain.benthos.dev/v1alpha1
+kind: Pipeline
+metadata:
+  labels:
+    app.kubernetes.io/name: pipeline
+    app.kubernetes.io/instance: pipeline-sample
+    app.kubernetes.io/part-of: benthos-captain
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: benthos-captain
+  name: pipeline-sample
+spec:
+  replicas: 1
+  config:
+    input:
+      generate:
+        mapping: root = "woof"
+        interval: 5s
+        count: 0
+
+    pipeline:
+      processors:
+        - mapping: root = content().uppercase()
+
+    output:
+      stdout: {}

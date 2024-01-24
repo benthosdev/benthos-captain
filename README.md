@@ -2,57 +2,44 @@
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-> ⚠️ **This is a work in progress proof of concept** ⚠️  
-
+> ⚠️ **This is a work in progress proof of concept** ⚠️
 
 Benthos Captain is a Kubernetes Operator to orchestrate [Benthos](https://www.benthos.dev/) pipelines.
 
-This operator has been created with [Operator SDK](https://sdk.operatorframework.io/)
+## Getting Started
 
-## Build
+Currently, there isn't a stable release of the operator. If you want to install the operator for development purposes, you can follow the [developer guide](./docs/developer-guide.md).
 
-```
-make docker-build docker-push IMG=<some-registry>/benthos-captain:0.1.0
-```
+The operator provides a custom resource for managing Benthos pipelines. Once you've got the operator running, you can deploy a `Pipeline` resource to test it out:
 
-## Install the Pipelines CRD
+```yaml
+---
+apiVersion: captain.benthos.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline-sample
+spec:
+  replicas: 2
+  config:
+    input:
+      generate:
+        mapping: root = "woof"
+        interval: 5s
+        count: 0
 
-```
-make install
-```
+    pipeline:
+      processors:
+        - mapping: root = content().uppercase()
 
-## Check the newly created CRD
-
-```
-kubectl get crd pipelines.captain.benthos.dev -oyaml
-```
-
-## Deploy Benthos-Captain operator
-
-```
-make deploy IMG=<some-registry>/benthos-captain:0.1.0
-```
-
-## Create a sample Pipeline:
-```
-kubectl apply -f config/samples/benthoscaptain_v1alpha1_pipeline.yaml -n default
+    output:
+      stdout: {}
 ```
 
-## Check the newly created Pipeline:
-```
-kubectl get pipelines -n default
-```
+Once the resource is deployed, you can monitor the state of the resoure:
 
-## See benthos-captain controller manager logs:
-```
-kubectl logs -f deploy/benthos-captain-controller-manager -n benthos-captain-system -c manager
-```
+```bash
+kubectl get pipelines
 
-## See sample benthos pipeline logs:
+NAME                     READY   PHASE     REPLICAS   AVAILABLE   AGE
+pipeline-sample   true    Running   2          2           62s
 ```
-kubectl logs -f deploy/pipeline-sample -n default
-```
-
-# Helm Chart
-
-If you want to deploy Benthos-Captain with Helm, see [here](chart/benthos-captain/README.md)

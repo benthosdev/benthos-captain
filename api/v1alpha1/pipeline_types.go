@@ -1,108 +1,48 @@
-/*
-Copyright 2022.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package v1alpha1
 
 import (
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-type HTTPConfig struct {
-}
-
-type InputConfig struct {
-	Name string `json:"name,omitempty"`
-}
-
-type BufferConfig struct {
-}
-
-type PipelineConfig struct {
-}
-
-type OutputConfig struct {
-}
-
-type ManagerConfig struct {
-}
-
-type LoggerConfig struct {
-}
-
-type MetricsConfig struct {
-}
-
-type TracerConfig struct {
-}
-
-type SystemCloseTimeoutConfig struct {
-}
-
-type TestsConfig struct {
-}
-
-type Config struct {
-	HTTP               HTTPConfig               `json:"http" yaml:"http"`
-	Input              InputConfig              `json:"input" yaml:"input"`
-	Buffer             BufferConfig             `json:"buffer" yaml:"buffer"`
-	Pipeline           PipelineConfig           `json:"pipeline" yaml:"pipeline"`
-	Output             OutputConfig             `json:"output" yaml:"output"`
-	Manager            ManagerConfig            `json:"resources" yaml:"resources"`
-	Logger             LoggerConfig             `json:"logger" yaml:"logger"`
-	Metrics            MetricsConfig            `json:"metrics" yaml:"metrics"`
-	Tracer             TracerConfig             `json:"tracer" yaml:"tracer"`
-	SystemCloseTimeout SystemCloseTimeoutConfig `json:"shutdown_timeout" yaml:"shutdown_timeout"`
-	Tests              TestsConfig              `json:"tests,omitempty" yaml:"tests,omitempty"`
-}
+const (
+	// PipelineFinalizer is the finalizer used by the pipeline controller to cleanup resources when the pipeline is being deleted.
+	PipelineFinalizer = "pipeline.captain.benthos.dev"
+)
 
 // PipelineSpec defines the desired state of Pipeline
 type PipelineSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Currently this is set just to take a string. Ideally, we should be able to fetch the struct
+	// as a package but currently `config` is internal. If we decide to fetch from a package, we will need to consider
+	// Kubernetes API Versioning when it changes.
 
-	// Workers defines the number of workers
-	Workers int `json:"workers,omitempty"`
+	// Config defines the Benthos configuration as a string.
+	Config *apiextensionsv1.JSON `json:"config,omitempty"`
 
-	// Config defines the pipeline config
-	Config Config `json:"config,omitempty"`
+	// Replicas defines the amount of replicas to create for the Benthos deployment.
+	Replicas int32 `json:"replicas,omitempty"`
+
+	// Image defines the image and tag to use for the Benthos deployment.
+	// +optional
+	Image string `json:"image,omitempty"`
 }
-
-type State string
-
-const (
-	Degraded State = "Degraded"
-	Running        = "Running"
-	Paused         = "Paused"
-	Failed         = "Failed"
-)
 
 // PipelineStatus defines the observed state of Pipeline
 type PipelineStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// State
-	State State `json:"state,omitempty"`
+	Ready bool   `json:"ready,omitempty"`
+	Phase string `json:"phase,omitempty"`
+	// AvailableReplicas is the amount of pods available from the deployment.
+	AvailableReplicas int32 `json:"availableReplicas,omitempty"`
 }
 
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
+// +kubebuilder:object:root=true
+// +kubebuilder:resource:path=pipelines,scope=Namespaced
+// +kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.ready",description="The current state the Benthos Pipeline."
+// +kubebuilder:printcolumn:name="Phase",type="string",JSONPath=".status.phase",description="The current phase of the Benthos Pipeline."
+// +kubebuilder:printcolumn:name="Replicas",type="integer",JSONPath=".spec.replicas",description="The desired amount of running Benthos replicas."
+// +kubebuilder:printcolumn:name="Available",type="integer",JSONPath=".status.availableReplicas",description="The amount of available Benthos replicas."
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp",description="The age of this resource"
 
 // Pipeline is the Schema for the pipelines API
 type Pipeline struct {
@@ -125,3 +65,7 @@ type PipelineList struct {
 func init() {
 	SchemeBuilder.Register(&Pipeline{}, &PipelineList{})
 }
+
+// Currently these have been pulled directly from the Benthos repo. Ideally, we should be able to fetch these
+// as a package but currently `config` is internal. If we decide to fetch from a package, we will need to consider
+// Kubernetes API Versioning when it changes.

@@ -2,10 +2,17 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: pipeline-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: benthos-captain
+    app.kubernetes.io/part-of: benthos-captain
+    app.kubernetes.io/managed-by: kustomize
   name: pipeline-viewer-role
 rules:
 - apiGroups:
-  - benthoscaptain.benthos.dev
+  - captain.benthos.dev
   resources:
   - pipelines
   verbs:
@@ -13,7 +20,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - benthoscaptain.benthos.dev
+  - captain.benthos.dev
   resources:
   - pipelines/status
   verbs:
