@@ -1,12 +1,12 @@
 # Adds namespace to all resources.
-namespace: bentos-captain-system
+namespace: benthos-captain-system
 
 # Value of this field is prepended to the
 # names of all resources, e.g. a deployment named
 # "wordpress" becomes "alices-wordpress".
 # Note that it should also match with the prefix (text before '-') of the namespace
 # field above.
-namePrefix: bentos-captain-
+namePrefix: benthos-captain-
 
 resources:
   - ../crd

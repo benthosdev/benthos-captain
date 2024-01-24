@@ -1,4 +1,4 @@
-// Package v1alpha1 contains API Schema definitions for the streaming v1alpha1 API group
+// Package v1alpha1 contains API Schema definitions for the captain v1alpha1 API group
 // +kubebuilder:object:generate=true
 // +groupName=captain.benthos.dev
 package v1alpha1

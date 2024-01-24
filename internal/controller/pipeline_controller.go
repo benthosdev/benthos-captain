@@ -166,7 +166,7 @@ func (r *PipelineReconciler) setPipelineStatus(scope *PipelineScope, deployment 
 
 	// how long since deployment creation before reporting an error.
 	failedDelay := time.Second * 30
-	if !available && deployment.Status.UnavailableReplicas == replicas && deployment.CreationTimestamp.Sub(time.Now()) > failedDelay {
+	if !available && deployment.Status.UnavailableReplicas == replicas && time.Until(deployment.CreationTimestamp.Add(failedDelay)) > 0 {
 		scope.status(false, StatusFailed)
 		return reconcile.Result{}, errors.New("One or more pods failed to start. Check the logs of the pods.")
 	}

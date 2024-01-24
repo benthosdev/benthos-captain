@@ -16,7 +16,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	streamingv1alpha1 "github.com/benthosdev/benthos-captain/api/v1alpha1"
+	captainv1alpha1 "github.com/benthosdev/benthos-captain/api/v1alpha1"
 	"github.com/benthosdev/benthos-captain/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
@@ -30,7 +30,7 @@ func init() {
 	log.SetLogger(zap.New())
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(streamingv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(captainv1alpha1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 

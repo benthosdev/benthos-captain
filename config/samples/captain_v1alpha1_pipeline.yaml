@@ -4,9 +4,9 @@ metadata:
   labels:
     app.kubernetes.io/name: pipeline
     app.kubernetes.io/instance: pipeline-sample
-    app.kubernetes.io/part-of: bentos-captain
+    app.kubernetes.io/part-of: benthos-captain
     app.kubernetes.io/managed-by: kustomize
-    app.kubernetes.io/created-by: bentos-captain
+    app.kubernetes.io/created-by: benthos-captain
   name: pipeline-sample
 spec:
   replicas: 1
