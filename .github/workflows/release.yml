@@ -30,5 +30,8 @@ jobs:
       - name: Test
         run: make test
 
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
       - name: Release
         run: make docker-buildx IMG=ghcr.io/benthosdev/benthos-captain:${{github.ref_name}}
