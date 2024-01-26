@@ -3,7 +3,7 @@
 # build benthos operator
 def deploy_benthos_operator():
     docker_build(
-      "controller:latest",
+      "ghcr.io/benthosdev/benthos-captain:latest",
       ".",
       ignore=[
         ".git",

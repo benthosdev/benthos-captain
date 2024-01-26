@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   GOLANG_VERSION: "1.20.x"
 
@@ -34,4 +38,6 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
       - name: Release
-        run: make docker-buildx IMG=ghcr.io/benthosdev/benthos-captain:${{github.ref_name}}
+        run: |
+          make docker-buildx IMG=ghcr.io/benthosdev/benthos-captain:${{github.ref_name}}
+          make docker-buildx IMG=ghcr.io/benthosdev/benthos-captain:latest

@@ -65,7 +65,7 @@ spec:
           args:
             - --leader-elect
             - -zap-devel
-          image: controller:latest
+          image: ghcr.io/benthosdev/benthos-captain:latest
           name: manager
           securityContext:
             allowPrivilegeEscalation: false
