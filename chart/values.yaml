@@ -1,0 +1,22 @@
+deployment:
+  manager:
+    args:
+      - --leader-elect
+      - -zap-devel
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+    image:
+      repository: ghcr.io/benthosdev/benthos-captain
+    # resources:
+    #   limits:
+    #     cpu: 500m
+    #     memory: 128Mi
+    #   requests:
+    #     cpu: 10m
+    #     memory: 64Mi
+  replicas: 1
+  serviceAccount:
+    annotations: {}
