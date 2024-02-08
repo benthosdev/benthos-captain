@@ -1,0 +1,18 @@
+apiVersion: captain.benthos.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: woof
+spec:
+  replicas: 1
+  config:
+    input:
+      generate:
+        mapping: root = "woof"
+        interval: 60s
+        count: 0
+    pipeline:
+      processors:
+        - mapping: root = content().uppercase()
+    output:
+      stdout:
+        codec: lines

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "benthos-captain.fullname" . }}
+  labels:
+    app.kubernetes.io/component: manager
+    app.kubernetes.io/created-by: benthos-captain
+    app.kubernetes.io/part-of: benthos-captain
+    control-plane: controller-manager
+  {{- include "benthos-captain.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+    {{- include "benthos-captain.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        control-plane: controller-manager
+      {{- include "benthos-captain.selectorLabels" . | nindent 8 }}
+      annotations:
+        kubectl.kubernetes.io/default-container: manager
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+      containers:
+      - args: {{- toYaml .Values.deployment.manager.args | nindent 8 }}
+        command:
+        - /manager
+        image: {{ .Values.deployment.manager.image.repository }}:{{ .Values.deployment.manager.image.tag
+          | default .Chart.AppVersion }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: manager
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources: {{- toYaml .Values.deployment.manager.resources | nindent 10
+          }}
+        securityContext: {{- toYaml .Values.deployment.manager.containerSecurityContext
+          | nindent 10 }}
+      securityContext:
+        runAsNonRoot: true
+      serviceAccountName: {{ include "benthos-captain.fullname" . }}
+      terminationGracePeriodSeconds: 10

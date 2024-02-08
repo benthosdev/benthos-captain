@@ -1,0 +1,93 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: pipelines.captain.benthos.dev
+  labels:
+  {{- include "benthos-captain.labels" . | nindent 4 }}
+spec:
+  group: captain.benthos.dev
+  names:
+    kind: Pipeline
+    listKind: PipelineList
+    plural: pipelines
+    singular: pipeline
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: The current state the Benthos Pipeline.
+      jsonPath: .status.ready
+      name: Ready
+      type: string
+    - description: The current phase of the Benthos Pipeline.
+      jsonPath: .status.phase
+      name: Phase
+      type: string
+    - description: The desired amount of running Benthos replicas.
+      jsonPath: .spec.replicas
+      name: Replicas
+      type: integer
+    - description: The amount of available Benthos replicas.
+      jsonPath: .status.availableReplicas
+      name: Available
+      type: integer
+    - description: The age of this resource
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Pipeline is the Schema for the pipelines API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PipelineSpec defines the desired state of Pipeline
+            properties:
+              config:
+                description: Config defines the Benthos configuration as a string.
+                x-kubernetes-preserve-unknown-fields: true
+              image:
+                description: Image defines the image and tag to use for the Benthos
+                  deployment.
+                type: string
+              replicas:
+                description: Replicas defines the amount of replicas to create for the
+                  Benthos deployment.
+                format: int32
+                type: integer
+            type: object
+          status:
+            description: PipelineStatus defines the observed state of Pipeline
+            properties:
+              availableReplicas:
+                description: AvailableReplicas is the amount of pods available from
+                  the deployment.
+                format: int32
+                type: integer
+              phase:
+                type: string
+              ready:
+                type: boolean
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
