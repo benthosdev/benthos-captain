@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/helm unittest --color ./chart/benthos-captain;
+/usr/bin/helm unittest --color ./chart;
