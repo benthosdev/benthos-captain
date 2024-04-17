@@ -1,6 +1,6 @@
 module github.com/benthosdev/benthos-captain
 
-go 1.20
+go 1.22
 
 require (
 	github.com/go-logr/logr v1.2.4

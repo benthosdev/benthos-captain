@@ -10,7 +10,7 @@ permissions:
   packages: write
 
 env:
-  GOLANG_VERSION: "1.20.x"
+  GOLANG_VERSION: "1.22.x"
 
 jobs:
   release:
