@@ -1,5 +1,5 @@
 
-chart-test: chart-lint
+chart-test:
 	docker run ${DOCKER_ARGS} --entrypoint /bin/sh --rm -v $(CURDIR):/charts -w /charts helmunittest/helm-unittest:3.11.1-0.3.0 /charts/.github/test.sh
 
 chart-lint:
