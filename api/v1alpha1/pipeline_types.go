@@ -25,6 +25,10 @@ type PipelineSpec struct {
 	// Image defines the image and tag to use for the Benthos deployment.
 	// +optional
 	Image string `json:"image,omitempty"`
+
+	// ConfigFiles Additional configuration, as Key/Value pairs, that will be mounted as files with the /config
+	// directory on the pod. The key should be the file name and the value should be its content.
+	ConfigFiles map[string]string `json:"configFiles,omitempty"`
 }
 
 // PipelineStatus defines the observed state of Pipeline

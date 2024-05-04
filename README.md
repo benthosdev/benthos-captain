@@ -22,10 +22,14 @@ spec:
   replicas: 2
   config:
     input:
-      generate:
-        mapping: root = "woof"
-        interval: 5s
-        count: 0
+      broker:
+        inputs:
+          - file:
+              paths: ["./config/meow.txt"]
+          - generate:
+              mapping: root = "woof"
+              interval: 10s
+              count: 0
 
     pipeline:
       processors:
@@ -33,9 +37,13 @@ spec:
 
     output:
       stdout: {}
+
+  configFiles:
+    meow.txt: |
+      meow
 ```
 
-Once the resource is deployed, you can monitor the state of the resoure:
+Once the resource is deployed, you can monitor the state of the resource:
 
 ```bash
 kubectl get pipelines
