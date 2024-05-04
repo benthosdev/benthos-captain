@@ -257,6 +257,9 @@ func (r *PipelineReconciler) createOrPatchConfigMap(scope *PipelineScope) (ctrl.
 		sc.Data = map[string]string{
 			"benthos.yaml": string(scope.Pipeline.Spec.Config.Raw),
 		}
+		for file, config := range scope.Pipeline.Spec.ConfigFiles {
+			sc.Data[file] = config
+		}
 		err := controllerutil.SetControllerReference(scope.Pipeline, sc, r.Scheme)
 		if err != nil {
 			return errors.Wrapf(err, "Failed to set controller reference on configmap %s", name)
@@ -267,7 +270,7 @@ func (r *PipelineReconciler) createOrPatchConfigMap(scope *PipelineScope) (ctrl.
 		return reconcile.Result{}, errors.Wrapf(err, "Failed to reconcile config map %s", name)
 	}
 
-	scope.Log.Info("Succesfully reconciled config map", "name", name, "operation", op)
+	scope.Log.Info("Successfully reconciled config map", "name", name, "operation", op)
 
 	// rollout the deployment if the configmap changes
 	if op == controllerutil.OperationResultUpdated {
