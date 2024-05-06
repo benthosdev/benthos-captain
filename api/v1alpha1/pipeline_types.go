@@ -27,6 +27,10 @@ type PipelineSpec struct {
 	// +optional
 	Image string `json:"image,omitempty"`
 
+	// ImagePullSecret is an optional reference to a secret in the same namespace to use for pulling the image used by
+	// the benthos Pod. Similar to ImagePullSecrets, see v1.PodSpec#ImagePullSecrets.
+	ImagePullSecret string `json:"imagePullSecret,omitempty"`
+
 	// ConfigFiles Additional configuration, as Key/Value pairs, that will be mounted as files with the /config
 	// directory on the pod. The key should be the file name and the value should be its content.
 	ConfigFiles map[string]string `json:"configFiles,omitempty"`

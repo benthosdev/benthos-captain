@@ -71,7 +71,7 @@ spec:
                   directory on the pod. The key should be the file name and the value should be its content.
                 type: object
               env:
-                description: Env Environment Variable to set in the benthos pipeline
+                description: Env Environment Variables to set in the benthos pipeline
                   pod.
                 items:
                   description: EnvVar represents an environment variable present in
@@ -186,6 +186,11 @@ spec:
               image:
                 description: Image defines the image and tag to use for the Benthos
                   deployment.
+                type: string
+              imagePullSecret:
+                description: |-
+                  ImagePullSecret is an optional reference to a secret in the same namespace to use for pulling the image used by
+                  the benthos Pod. Similar to ImagePullSecrets, see v1.PodSpec#ImagePullSecrets.
                 type: string
               replicas:
                 description: Replicas defines the amount of replicas to create for
