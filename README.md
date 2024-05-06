@@ -19,17 +19,19 @@ kind: Pipeline
 metadata:
   name: pipeline-sample
 spec:
-  replicas: 2
+  replicas: 1
   config:
     input:
-      broker:
-        inputs:
-          - file:
-              paths: ["./config/meow.txt"]
-          - generate:
-              mapping: root = "woof"
-              interval: 10s
-              count: 0
+      generate:
+        mapping: |
+          let favorite_animal = env("FAVORITE_ANIMAL") 
+          root = match $favorite_animal {
+            "cat" => file("/config/cat.txt")
+            "dog" => file("/config/dog.txt")
+            _ => file("/config/dog.txt")
+          }
+        interval: 5s
+        count: 0
 
     pipeline:
       processors:
@@ -39,8 +41,14 @@ spec:
       stdout: {}
 
   configFiles:
-    meow.txt: |
+    cat.txt: |
       meow
+    dog.txt: |
+      woof
+
+  env:
+    - name: FAVORITE_ANIMAL
+      value: cat
 ```
 
 Once the resource is deployed, you can monitor the state of the resource:

@@ -54,6 +54,7 @@ func NewDeployment(name string, namespace string, scope captainv1.PipelineSpec) 
 								ReadOnly:  true,
 							},
 						},
+						Env: scope.Env,
 					}},
 					Volumes: []corev1.Volume{
 						{
