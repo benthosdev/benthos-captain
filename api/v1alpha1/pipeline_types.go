@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/api/core/v1"
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -29,6 +30,9 @@ type PipelineSpec struct {
 	// ConfigFiles Additional configuration, as Key/Value pairs, that will be mounted as files with the /config
 	// directory on the pod. The key should be the file name and the value should be its content.
 	ConfigFiles map[string]string `json:"configFiles,omitempty"`
+
+	// Env Environment Variables to set in the benthos pipeline pod.
+	Env []v1.EnvVar `json:"env,omitempty"`
 }
 
 // PipelineStatus defines the observed state of Pipeline
