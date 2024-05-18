@@ -9,6 +9,7 @@ import (
 	"github.com/pkg/errors"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
@@ -60,6 +61,14 @@ func (r *PipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 	pipeline := &captainv1.Pipeline{}
 	err := r.Get(ctx, req.NamespacedName, pipeline)
 	if err != nil {
+		if apierrors.IsNotFound(err) {
+			// Request object not found, could have been deleted after reconcile request.
+			// Return and don't requeue
+			log.Info("pipeline resource not found")
+			return reconcile.Result{}, nil
+		}
+		// Error reading the object - requeue the request.
+		log.Error(err, "failed to get pipeline")
 		return reconcile.Result{}, err
 	}
 
