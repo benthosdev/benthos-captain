@@ -75,15 +75,23 @@ func (r *PipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 		return r.reconcileDelete(scope)
 	}
 
+	if !controllerutil.ContainsFinalizer(pipeline, captainv1.PipelineFinalizer) {
+		log.Info("adding Finalizer for pipeline")
+		if ok := controllerutil.AddFinalizer(pipeline, captainv1.PipelineFinalizer); !ok {
+			log.Error(nil, "failed to add finalizer to pipeline, requeing")
+			return ctrl.Result{Requeue: true}, nil
+		}
+
+		// add finalizer and update
+		// the update will trigger a new reconciliation
+		return ctrl.Result{}, r.Update(ctx, pipeline)
+	}
 	// handle pipeline reconcile
 	return r.reconcileNormal(scope)
 }
 
 // reconcileNormal handles normal reconciles
 func (r *PipelineReconciler) reconcileNormal(scope *PipelineScope) (ctrl.Result, error) {
-	// add finalizer to the Pipeline
-	controllerutil.AddFinalizer(scope.Pipeline, captainv1.PipelineFinalizer)
-
 	// check if the Pipeline has already created a deployment
 	_, err := r.createOrUpdatePipeline(scope)
 	if err != nil {
@@ -96,8 +104,9 @@ func (r *PipelineReconciler) reconcileNormal(scope *PipelineScope) (ctrl.Result,
 // reconcileNormal handles a deletion during the reconcile
 func (r *PipelineReconciler) reconcileDelete(scope *PipelineScope) (ctrl.Result, error) {
 	// remove finalizer to allow the resource to be deleted
-	controllerutil.RemoveFinalizer(scope.Pipeline, captainv1.PipelineFinalizer)
-
+	if controllerutil.RemoveFinalizer(scope.Pipeline, captainv1.PipelineFinalizer) {
+		return reconcile.Result{}, r.Update(scope.Ctx, scope.Pipeline)
+	}
 	return reconcile.Result{}, nil
 }
 
