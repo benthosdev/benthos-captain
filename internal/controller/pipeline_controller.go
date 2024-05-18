@@ -21,6 +21,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
 	captainv1 "github.com/benthosdev/benthos-captain/api/v1alpha1"
+	"github.com/benthosdev/benthos-captain/internal/controller/metrics"
 	"github.com/benthosdev/benthos-captain/internal/pkg/resource"
 )
 
@@ -71,6 +72,8 @@ func (r *PipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 		log.Error(err, "failed to get pipeline")
 		return reconcile.Result{}, err
 	}
+
+	metrics.PipelineReconciles.WithLabelValues(pipeline.Name).Inc()
 
 	scope := &PipelineScope{
 		Log:      &log,
@@ -258,6 +261,7 @@ func (r *PipelineReconciler) createOrPatchDeployment(scope *PipelineScope) (ctrl
 		return nil
 	})
 	if err != nil {
+		metrics.PipelineFailedReconciles.WithLabelValues(name).Inc()
 		return reconcile.Result{}, errors.Wrapf(err, "Failed to reconcile deployment %s", name)
 	}
 	scope.Log.Info("Succesfully reconciled deployment", "name", name, "operation", op)
