@@ -7,7 +7,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const DefaultImage = "jeffail/benthos:4.22"
+const DefaultImage = "jeffail/benthos:4.27"
 
 func NewDeployment(name string, namespace string, scope captainv1.PipelineSpec) *appsv1.Deployment {
 	labels := map[string]string{
