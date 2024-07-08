@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   name: pipelines.captain.benthos.dev
   labels:
-  {{- include "benthos-captain.labels" . | nindent 4 }}
+    app: benthos-captain
 spec:
   group: captain.benthos.dev
   names:
